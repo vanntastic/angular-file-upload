@@ -282,7 +282,8 @@ app.factory('$fileUploader', ['$compile', '$rootScope', '$http', '$window', func
             var index = this.getIndexOfItem(value);
             var item = this.queue[index];
             var prop = this.isHTML5 ? '_xhr' : '_form';
-            if (item[prop]) item[prop].abort();
+            // fix from: https://github.com/nervgh/angular-file-upload/pull/140
+            if (item.isUploading && item[prop]) item[prop].abort();
         },
 
         /**
